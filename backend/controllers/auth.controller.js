@@ -159,12 +159,13 @@ export const forgotPassword = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Password reset link has been sent to you email successfully!",
+      message: "Password reset link has been sent to your email successfully!",
     });
   } catch (err) {
     return res.status(400).json({ status: false, message: err.message });
   }
 };
+
 export const resetPassword = async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
@@ -196,5 +197,23 @@ export const resetPassword = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({ status: false, message: err.message });
+  }
+};
+
+export const checkAuth = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password"); // "-password" means don't include password in user object
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found!" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong on server!" });
   }
 };
