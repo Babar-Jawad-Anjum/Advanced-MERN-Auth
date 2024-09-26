@@ -9,7 +9,7 @@ const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { isLoading, forgotPassword } = useAuthStore();
+  const { isLoading, forgotPassword, error } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +43,10 @@ const ForgotPasswordPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            {error && (
+              <p className="text-red-500 font-semibold mb-2">{error}</p>
+            )}
+
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
