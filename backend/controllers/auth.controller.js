@@ -87,7 +87,7 @@ export const verifyEmail = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(400).json({ status: false, message: error.message });
+    return res.status(400).json({ status: false, message: err.message });
   }
 };
 
@@ -126,10 +126,8 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.clearCookie("token").json({
-    success: true,
-    message: "Logged out successfully!",
-  });
+  res.clearCookie("token");
+  res.status(200).json({ success: true, message: "Logged out successfully" });
 };
 
 export const forgotPassword = async (req, res) => {
