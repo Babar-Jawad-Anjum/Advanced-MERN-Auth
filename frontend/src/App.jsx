@@ -9,7 +9,7 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/ReserPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 //protects routes that require authentication
 
@@ -113,6 +113,8 @@ function App() {
             </RedirectAuthenticationUser>
           }
         />
+        {/* For pages that not found - 404 */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );
